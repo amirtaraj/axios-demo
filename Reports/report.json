@@ -1,0 +1,236 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 7,
+    "passes": 7,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-04-25T11:44:40.430Z",
+    "end": "2021-04-25T11:44:58.341Z",
+    "duration": 17911,
+    "testsRegistered": 7,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "842cfecd-d2e9-4ba3-9d7d-c3d63f9d5131",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1df28298-2d25-4c54-8666-8947b7b6a609",
+          "title": "Customer API Testing",
+          "fullFile": "D:\\Automation_Work\\API Automation\\axios-demo-api-test\\customers.test.js",
+          "file": "\\customers.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook: Generate Fake Info in \"Customer API Testing\"",
+              "fullTitle": "Customer API Testing \"before all\" hook: Generate Fake Info in \"Customer API Testing\"",
+              "timedOut": false,
+              "duration": 1357,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.get(`https://api.namefake.com/english-united-states`,\n    {\n        headers: {\n            'Content-Type': 'application/json',\n        }\n    }\n).then(res => res.data)\nenvVariables.id = Math.floor((Math.random() * (9999-1001)) + 1);\nenvVariables.name = response.name;\nenvVariables.email = `${response.email_u}@test.com`;\nenvVariables.address = response.address;\nenvVariables.phone_number = response.phone_w;\nfs.writeFileSync('./env.json', JSON.stringify(envVariables));",
+              "err": {},
+              "uuid": "ff08b125-79ad-4864-8f76-ac969eb5737a",
+              "parentUUID": "1df28298-2d25-4c54-8666-8947b7b6a609",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Get Users",
+              "fullTitle": "Customer API Testing Get Users",
+              "timedOut": false,
+              "duration": 300,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.get('https://jsonplaceholder.typicode.com/users', {\n    headers: {\n        'Content-Type': 'application/json',\n    }\n});\nconsole.log(response.data);\nexpect(response.status).equals(200);",
+              "err": {},
+              "uuid": "8f847bf1-2578-46c6-a802-c1df1aff202a",
+              "parentUUID": "1df28298-2d25-4c54-8666-8947b7b6a609",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "User Login",
+              "fullTitle": "Customer API Testing User Login",
+              "timedOut": false,
+              "duration": 9703,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.post(`${envVariables.baseUrl}/customer/api/v1/login`,\n    {\n        \"username\": \"salman\",\n        \"password\": \"salman1234\"\n    },\n    {\n        headers: {\n            'Content-Type': 'application/json',\n        }\n    }\n).then(res => res.data)\nconsole.log(response);\nenvVariables.token = response.token;\nfs.writeFileSync('./env.json', JSON.stringify(envVariables));",
+              "err": {},
+              "uuid": "ad49df97-dfce-48af-a464-79e4dc02f2eb",
+              "parentUUID": "1df28298-2d25-4c54-8666-8947b7b6a609",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Customer List",
+              "fullTitle": "Customer API Testing Customer List",
+              "timedOut": false,
+              "duration": 2053,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.get(`${envVariables.baseUrl}/customer/api/v1/list`,\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': envVariables.token\n        }\n    }\n).then(res => res.data)\nconsole.log(response);",
+              "err": {},
+              "uuid": "3308ce95-6b27-4c6b-9f4e-ffa7fd257886",
+              "parentUUID": "1df28298-2d25-4c54-8666-8947b7b6a609",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Get Customer Info",
+              "fullTitle": "Customer API Testing Get Customer Info",
+              "timedOut": false,
+              "duration": 1086,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.get(`${envVariables.baseUrl}/customer/api/v1/get/101`,\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': envVariables.token\n        }\n    }\n).then(res => res.data)\nconsole.log(response);\nexpect(response.id).equals(101)",
+              "err": {},
+              "uuid": "947c78ec-4de1-4a8c-9cc3-51ee127d0d81",
+              "parentUUID": "1df28298-2d25-4c54-8666-8947b7b6a609",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Signup User",
+              "fullTitle": "Customer API Testing Signup User",
+              "timedOut": false,
+              "duration": 961,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.post(`${envVariables.baseUrl}/customer/api/v1/create`,\n    {\n        \"id\": envVariables.id,\n        \"name\": envVariables.name,\n        \"email\": envVariables.email,\n        \"address\": envVariables.address,\n        \"phone_number\": envVariables.phone_number\n    },\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': envVariables.token\n        }\n    }\n).then(res => res.data)\nconsole.log(response);\nexpect(response.message).contains(\"Success\");",
+              "err": {},
+              "uuid": "e2a384b9-65b6-4d94-b953-b0a30fbfc979",
+              "parentUUID": "1df28298-2d25-4c54-8666-8947b7b6a609",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Update Customer",
+              "fullTitle": "Customer API Testing Update Customer",
+              "timedOut": false,
+              "duration": 1190,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.put(`${envVariables.baseUrl}/customer/api/v1/update/${envVariables.id}`,\n    {\n        \"id\": envVariables.id,\n        \"name\": envVariables.name,\n        \"email\": envVariables.email,\n        \"address\": \"Dhaka,Bangladesh\",\n        \"phone_number\": \"01602212410\"\n    },\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': envVariables.token\n        }\n    }\n).then(res => res.data)\nconsole.log(response);\nexpect(response.message).contains(\"Success\");",
+              "err": {},
+              "uuid": "1f75faf0-386a-44c0-8ad4-afb829c83a5c",
+              "parentUUID": "1df28298-2d25-4c54-8666-8947b7b6a609",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Delete Customer",
+              "fullTitle": "Customer API Testing Delete Customer",
+              "timedOut": false,
+              "duration": 1246,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await axios.delete(`${envVariables.baseUrl}/customer/api/v1/delete/${envVariables.id}`,\n    {\n        headers: {\n            'Content-Type': 'application/json',\n            'Authorization': envVariables.token\n        }\n    }\n).then(res => res.data)\nconsole.log(response);\nexpect(response.message).contains(\"Customer deleted!\");",
+              "err": {},
+              "uuid": "aa9cfde7-4211-42dc-8992-7b9d464549fc",
+              "parentUUID": "1df28298-2d25-4c54-8666-8947b7b6a609",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "8f847bf1-2578-46c6-a802-c1df1aff202a",
+            "ad49df97-dfce-48af-a464-79e4dc02f2eb",
+            "3308ce95-6b27-4c6b-9f4e-ffa7fd257886",
+            "947c78ec-4de1-4a8c-9cc3-51ee127d0d81",
+            "e2a384b9-65b6-4d94-b953-b0a30fbfc979",
+            "1f75faf0-386a-44c0-8ad4-afb829c83a5c",
+            "aa9cfde7-4211-42dc-8992-7b9d464549fc"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 16539,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 30000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 30000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "8.3.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "report.html",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.2.2"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "Reports",
+        "reportFilename": "report.html"
+      },
+      "version": "5.2.0"
+    }
+  }
+}
