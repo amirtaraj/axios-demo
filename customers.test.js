@@ -2,6 +2,7 @@ const axios = require('axios');
 const { expect } = require('chai');
 const envVariables = require('./env.json');
 const fs = require('fs');
+const faker=require('faker');
 
 describe("Customer API Testing", async () => {
     it("Get Users", async () => {
@@ -12,6 +13,7 @@ describe("Customer API Testing", async () => {
         });
         console.log(response.data);
         expect(response.status).equals(200);
+        expect(response.data[0].id).equals(1);
     })
     it("User Login", async () => {
         const response = await axios.post(`${envVariables.baseUrl}/customer/api/v1/login`,
@@ -24,7 +26,7 @@ describe("Customer API Testing", async () => {
                     'Content-Type': 'application/json',
                 }
             }
-        ).then(res => res.data)
+        ).then(function (res) { return res.data })
         console.log(response);
         envVariables.token = response.token;
         fs.writeFileSync('./env.json', JSON.stringify(envVariables));
@@ -56,7 +58,7 @@ describe("Customer API Testing", async () => {
 
     })
 
-    before("Generate Fake Info", async () => {
+    before.skip("Generate Fake Info", async () => {
         const response = await axios.get(`https://api.namefake.com/english-united-states`,
             {
                 headers: {
@@ -64,7 +66,7 @@ describe("Customer API Testing", async () => {
                 }
             }
         ).then(res => res.data)
-        envVariables.id = Math.floor((Math.random() * (9999-1001)) + 1);
+        envVariables.id = Math.floor((Math.random() * (9999 - 1001)) + 1);
         envVariables.name = response.name;
         envVariables.email = `${response.email_u}@test.com`;
         envVariables.address = response.address;
@@ -75,11 +77,11 @@ describe("Customer API Testing", async () => {
     it("Signup User", async () => {
         const response = await axios.post(`${envVariables.baseUrl}/customer/api/v1/create`,
             {
-                "id": envVariables.id,
-                "name": envVariables.name,
-                "email": envVariables.email,
-                "address": envVariables.address,
-                "phone_number": envVariables.phone_number
+                "id": Math.floor((Math.random() * (9999 - 1001)) + 1),
+                "name": faker.name.firstName(),
+                "email": faker.internet.email(),
+                "address": faker.address.streetAddress(),
+                "phone_number": faker.phone.phoneNumber()
             },
             {
                 headers: {
@@ -90,6 +92,13 @@ describe("Customer API Testing", async () => {
         ).then(res => res.data)
         console.log(response);
         expect(response.message).contains("Success");
+
+        envVariables.id = response.Customers.id;
+        envVariables.name = response.Customers.name;
+        envVariables.email = response.Customers.email;
+        envVariables.address = response.Customers.address;
+        envVariables.phone_number = response.Customers.phone_number;
+        fs.writeFileSync('./env.json', JSON.stringify(envVariables));
 
     })
     it("Update Customer", async () => {
@@ -123,7 +132,6 @@ describe("Customer API Testing", async () => {
         ).then(res => res.data)
         console.log(response);
         expect(response.message).contains("Customer deleted!");
-       
 
     })
 })
