@@ -5,7 +5,7 @@ const fs = require('fs');
 const faker=require('faker');
 
 describe("Customer API Testing", async () => {
-    it("Get Users", async () => {
+    it.skip("Get Users", async () => {
         const response = await axios.get('https://jsonplaceholder.typicode.com/users', {
             headers: {
                 'Content-Type': 'application/json',
@@ -58,22 +58,22 @@ describe("Customer API Testing", async () => {
 
     })
 
-    before.skip("Generate Fake Info", async () => {
-        const response = await axios.get(`https://api.namefake.com/english-united-states`,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }
-        ).then(res => res.data)
-        envVariables.id = Math.floor((Math.random() * (9999 - 1001)) + 1);
-        envVariables.name = response.name;
-        envVariables.email = `${response.email_u}@test.com`;
-        envVariables.address = response.address;
-        envVariables.phone_number = response.phone_w;
-        fs.writeFileSync('./env.json', JSON.stringify(envVariables));
+    // before.skip("Generate Fake Info", async () => {
+    //     const response = await axios.get(`https://api.namefake.com/english-united-states`,
+    //         {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             }
+    //         }
+    //     ).then(res => res.data)
+    //     envVariables.id = Math.floor((Math.random() * (9999 - 1001)) + 1);
+    //     envVariables.name = response.name;
+    //     envVariables.email = `${response.email_u}@test.com`;
+    //     envVariables.address = response.address;
+    //     envVariables.phone_number = response.phone_w;
+    //     fs.writeFileSync('./env.json', JSON.stringify(envVariables));
 
-    })
+    // })
     it("Signup User", async () => {
         const response = await axios.post(`${envVariables.baseUrl}/customer/api/v1/create`,
             {
